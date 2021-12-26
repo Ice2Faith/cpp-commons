@@ -83,17 +83,27 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="i2f\commons\algorithm\Function.hpp" />
+    <ClInclude Include="i2f\commons\algorithm\Route.hpp" />
     <ClInclude Include="i2f\commons\base\Base.hpp" />
     <ClInclude Include="i2f\commons\container\Array.hpp" />
     <ClInclude Include="i2f\commons\container\ArrayList.hpp" />
+    <ClInclude Include="i2f\commons\container\Container.h" />
     <ClInclude Include="i2f\commons\container\LinkList.hpp" />
     <ClInclude Include="i2f\commons\container\List.h" />
+    <ClInclude Include="i2f\commons\container\Matrix2.hpp" />
     <ClInclude Include="i2f\commons\container\MultiList.h" />
     <ClInclude Include="i2f\commons\container\Queue.h" />
     <ClInclude Include="i2f\commons\container\Stack.h" />
     <ClInclude Include="i2f\commons\data\BinaryTreeNode.hpp" />
     <ClInclude Include="i2f\commons\data\DoubleListNode.hpp" />
     <ClInclude Include="i2f\commons\data\SingleListNode.hpp" />
+    <ClInclude Include="i2f\commons\graphics\g2d\g2d.h" />
+    <ClInclude Include="i2f\commons\graphics\g2d\Line2d.h" />
+    <ClInclude Include="i2f\commons\graphics\g2d\Point2d.h" />
+    <ClInclude Include="i2f\commons\graphics\g3d\g3d.h" />
+    <ClInclude Include="i2f\commons\graphics\g3d\Line3d.h" />
+    <ClInclude Include="i2f\commons\graphics\g3d\Point3d.h" />
+    <ClInclude Include="i2f\commons\graphics\Graphics.h" />
     <ClInclude Include="i2f\commons\interface\IComparator.h" />
     <ClInclude Include="i2f\commons\interface\IExecutor.h" />
     <ClInclude Include="i2f\commons\interface\IFilter.h" />
@@ -106,6 +116,7 @@
     <ClInclude Include="i2f\commons\io\InputStream.h" />
     <ClInclude Include="i2f\commons\io\Reader.h" />
     <ClInclude Include="i2f\commons\io\Scanner.h" />
+    <ClInclude Include="i2f\commons\math\Math.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

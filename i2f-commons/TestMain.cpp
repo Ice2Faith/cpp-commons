@@ -8,6 +8,10 @@
 #include"i2f\commons\interface\impl\PrintExecutor.hpp"
 #include"i2f\commons\algorithm\Function.hpp"
 #include"i2f\commons\interface\impl\DefaultComparator.hpp"
+#include"i2f\commons\container\Matrix2.hpp"
+#include"i2f\commons\graphics\g2d\g2d.h"
+#include"i2f\commons\graphics\g3d\g3d.h"
+#include"i2f\commons\algorithm\Route.hpp"
 
 void showList(IIterable<Base<int>>& list)
 {
@@ -24,8 +28,77 @@ LinkList<Base<int>> getList()
 	return ret;
 }
 
+
 int main()
 {
+
+	int map[][5] = {
+		//a b c d e
+		{ 0, 1, 0, 1, 0 }, //a
+		{ 0, 0, 1, 0, 0 }, //b
+		{ 0, 0, 0, 1, 1 }, //c
+		{ 0, 1, 0, 0, 0 }, //d
+		{ 0, 0, 1, 0, 0 }  //e
+	};
+	char* mapDict[] = { "A", "B", "C", "D", "E" };
+	Matrix2<int> mtxp((int *)map, 5, 5);
+	for (int i = 0; i < mtxp.height(); i++){
+		for (int j = 0; j < mtxp.width(); j++){
+			printf("%d,", mtxp.get(j, i));
+		}
+		printf("\n");
+	}
+	//A->E
+	RouteResult result = Route::route(0, 4, mtxp);
+	printf("A->E可达性：%d\n" , result.isPass);
+	if (result.isPass){
+		printf("可达最少经过：%d\n" , (result.route.size() - 2));
+		printf("可达最短路径为：");
+		for (int i = 0; i < result.route.size(); i++)
+		{
+			int item = result.route.get(i);
+			printf("->%s" ,mapDict[item]);
+		}
+	}
+
+	PointI p21(1, 2);
+	PointI p22(1, 7);
+	PointD3 p31(1.0, 2.0, 3.0);
+	PointD3 p32(4.0, 2.6, 7.0);
+
+	LineI l2(p21, p22);
+	LineD3 l3(p31, p32);
+
+	int len2 = l2.distance();
+	double len3 = l3.distance();
+
+	Matrix2<int> mtx(10, 5);
+	for (int i = 0; i < mtx.width(); i++){
+		for (int j = 0; j < mtx.height(); j++){
+			mtx.set(i,j, i*10+j);
+		}
+	}
+
+	for (int i = 0; i < mtx.height(); i++){
+		for (int j = 0; j < mtx.width(); j++){
+			printf("%d,", mtx.get(j,i));
+		}
+		printf("\n");
+	}
+
+	Array<int> row = mtx.row(1);
+	for (int i = 0; i < row.size(); i++){
+		printf("%d,", row.get(i));
+	}
+	printf("\n");
+
+	Array<int> col = mtx.col(1);
+	for (int i = 0; i < col.size(); i++){
+		printf("%d,", col.get(i));
+	}
+	printf("\n");
+
+
 	Integer adv = 1 + Integer(2);
 	adv = Integer(2) + 1;
 	adv = 1 + 2;

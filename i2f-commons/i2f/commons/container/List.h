@@ -2,6 +2,7 @@
 #define _I2F_LIST_H_
 #include"../interface/IIterable.h"
 #include"../interface/IIterator.h"
+#include"Container.h"
 
 template<typename T>
 class ListIterator : virtual public IIterator<T>
@@ -13,7 +14,7 @@ public:
 };
 
 template<typename T>
-class List : virtual public IIterable<T>
+class List : virtual public IIterable<T> , virtual public Container
 {
 public:
 	virtual ~List(){}
@@ -31,8 +32,6 @@ public:
 	virtual void insert(int index,const T& val) = 0;
 
 	virtual int size() = 0;
-	virtual bool isEmpty() = 0;
-
 	
 	virtual void clear() = 0;
 
