@@ -35,6 +35,8 @@ public:
 
 	int capital();
 
+	virtual T* data();
+
 	virtual T& get(int index) ;
 
 	virtual void add(const T& val) ;
@@ -114,6 +116,12 @@ template<typename T>
 ListIterator<T>* ArrayList<T>::iterator()
 {
 	return new ArrayListIterator<T>(this);
+}
+
+template<typename T>
+T* ArrayList<T>::data()
+{
+	return this->m_data;
 }
 
 template<typename T>
@@ -222,6 +230,9 @@ ArrayList<T>& ArrayList<T>::recapital(int capital)
 		int size = 0;
 		for (int i = 0; i < this->m_size && i < capital; i++, size++){
 			ndata[i] = this->m_data[i];
+		}
+		if (this->m_data != NULL){
+			delete[] this->m_data;
 		}
 		this->m_data = ndata;
 		this->m_capital = capital;

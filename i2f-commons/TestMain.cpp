@@ -12,6 +12,8 @@
 #include"i2f\commons\graphics\g2d\g2d.h"
 #include"i2f\commons\graphics\g3d\g3d.h"
 #include"i2f\commons\algorithm\Route.hpp"
+#include"i2f\commons\codec\Codec.h"
+#include"i2f\commons\base\String.hpp"
 
 void showList(IIterable<Base<int>>& list)
 {
@@ -31,6 +33,59 @@ LinkList<Base<int>> getList()
 
 int main()
 {
+
+	String str("abc");
+	String rpstr = str * 3;
+	 str = str + "bbb";
+	String tst = "aaa" + str;
+	String ist = 1788669 + tst;
+	str=str.toUpper();
+	str.append(str.isEmpty());
+	str.append(str.size());
+	str.append('A');
+	str.append((byte)0x25);
+	String str3 = str + 12.125;
+	printf("%s\n", (char*)str3);
+	
+	////11100100 10111000 10100101
+	////100111000100101
+	////100111000100101
+	//byte buf[] = { 0xe4, 0xb8, 0xa5 };
+
+	/*
+	//可能UTF编码测试，解析数据已超过32bit<6*6
+	//11111110 10110101 10010101 10101010 10110000 10110011 10110111
+	//               01   010101   101010   110000   110011   110111
+	byte buf[] = {0xfe,0xb5,0x95,0xaa,0xb0,0xb3,0xb7};
+	*/
+
+	
+	//标准最长UTF编码测试，最大数据31bit=5*6+1
+	//11111101 10110101 10010101 10101010 10110000 10110011
+	//      01   110101   010101   101010   110000   110011
+	byte buf[] = {0xfd,0xb5,0x95,0xaa,0xb0,0xb3};
+	
+	int iti = 0x12345678;
+	printf("%s\n", Codec::visualMemoryHex16(&iti, sizeof(iti), true).data());
+
+	int idx = 0;
+	UniChar32 c32=0;
+	bool ret = Codec::readNextUtf8Char2UniChar32(buf, &idx, &c32);
+
+	UniChar32 pc32 = c32;
+	for (int i = 0; i < 32; i++){
+		printf("%d", (pc32 & 0x80000000) == 0 ? 0 : 1);
+		pc32 <<= 1;
+	}
+	printf("\n");
+
+	Array<byte> astr = Codec::writeUniChar32AsUtf8Chars(c32);
+	for (int i = 0; i < astr.size(); i++){
+		printf("%02x,", astr.get(i));
+	}
+	printf("\n");
+
+	printf("isBigEndian:%d,isLittleEndian:%d\n", Codec::isBigEndian(), Codec::isLittleEndian());
 
 	int map[][5] = {
 		//a b c d e

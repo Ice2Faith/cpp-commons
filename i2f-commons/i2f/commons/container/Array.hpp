@@ -222,7 +222,7 @@ void Array<T>::of(List<T>& list, int from, int count)
 	}
 	this->m_data = new T[this->m_size];
 	for (int i = 0; i < this->m_size; i++){
-		this->m_data[i] = list.get(count+i);
+		this->m_data[i] = list.get(from+i);
 	}
 }
 
