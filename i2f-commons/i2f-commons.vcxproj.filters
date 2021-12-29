@@ -146,5 +146,38 @@
     <ClInclude Include="i2f\dev\Dev.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="i2f\commons\interface\IRandomAccessor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\IReverseIterator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\ISeekableIterator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\IDoubleDirectionIterator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\Map.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\IHashCode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\Set.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\IEquals.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\IHashEquals.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\HashMap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\HashSet.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

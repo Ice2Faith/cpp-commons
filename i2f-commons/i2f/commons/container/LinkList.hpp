@@ -90,6 +90,9 @@ public:
 	virtual T& get(){
 		return this->m_node->get();
 	}
+	virtual void set(const T& val){
+		this->m_node->set(val);
+	}
 	virtual T next(){
 		T rv = this->m_node->get();
 		this->m_node = this->m_node->nextNode();

@@ -1,18 +1,21 @@
 #ifndef _I2F_BASE_H_
 #define _I2F_BASE_H_
+#include"../interface/IHashCode.h"
+#include"../interface/IEquals.h"
 
 /*
 基本数据类型的包装器
 */
 
 template<typename T>
-class Base
+class Base : virtual public IHashCode, virtual public IEquals
 {
 private:
 	T val;
 public:
 	Base(){}
 	~Base(){}
+
 	Base(T val){
 		this->val = val;
 	}
@@ -29,6 +32,16 @@ public:
 	}
 	operator T(){
 		return this->val;
+	}
+	virtual int hashcode()
+	{
+		return (int)this->val;
+	}
+	virtual bool equals(const IEquals& val)
+	{
+		const Base<T>& tval = dynamic_cast<const Base<T>&>(val);
+		//Base<T>* tval = (Base<T>*)(void*)&val;
+		return this->val == tval.val;
 	}
 	Base<T>& operator++(){
 		this->val++;

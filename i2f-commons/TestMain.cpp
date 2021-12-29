@@ -14,6 +14,7 @@
 #include"i2f\commons\algorithm\Route.hpp"
 #include"i2f\commons\codec\Codec.h"
 #include"i2f\commons\base\String.hpp"
+#include"i2f\commons\container\HashSet.hpp"
 
 void showList(IIterable<Base<int>>& list)
 {
@@ -33,6 +34,25 @@ LinkList<Base<int>> getList()
 
 int main()
 {
+	HashSet<Base<int>> set;
+	set.put(Base<int>(1));
+	set.put(Base<int>(2));
+	set.put(Base<int>(3));
+	set.put(Base<int>(4));
+	set.put(Base<int>(3));
+	set.put(Base<int>(3));
+	set.put(Base<int>(1));
+
+	bool ex1=set.contains(Base<int>(1));
+	bool ex5 = set.contains(Base<int>(5));
+
+	IIterator<Base<int>> * sit = set.iterator();
+	while (sit->hasNext()){
+		printf("%d->", (int)sit->get());
+		sit->next();
+	}
+	delete sit;
+	printf("\n");
 
 	String str("abc");
 	String rpstr = str * 3;

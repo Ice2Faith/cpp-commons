@@ -98,6 +98,9 @@ public:
 	virtual T& get(){
 		return this->m_list->m_data[this->m_index];
 	}
+	virtual void set(const T& val){
+		this->m_list->m_data[this->m_index] = val;
+	}
 	virtual T next(){
 		T rv = this->m_list->m_data[this->m_index];
 		this->m_index++;
@@ -128,6 +131,7 @@ template<typename T>
 ArrayList<T>::ArrayList()
 {
 	this->m_size = 0;
+	this->m_data = NULL;
 	this->autoCapital(32);
 }
 
@@ -146,6 +150,7 @@ ArrayList<T>::~ArrayList()
 template<typename T>
 ArrayList<T>::ArrayList(const ArrayList<T> & arr)
 {
+	this->m_data = NULL;
 	this->autoCapital(arr.m_size);
 	this->m_size = arr.m_size;
 	for (int i = 0; i < this->m_size; i++){
@@ -191,6 +196,7 @@ template<typename T>
 ArrayList<T>::ArrayList(int initCapital)
 {
 	this->m_size = 0;
+	this->m_data = NULL;
 	this->autoCapital(initCapital);
 }
 
