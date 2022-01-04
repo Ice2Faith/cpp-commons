@@ -2,9 +2,11 @@
 #define _I2F_STRING_H_
 #include"../container/Container.h"
 #include"../codec/Codec.h"
+#include"../interface/IHashcode.h"
+#include"../interface/IEquals.h"
 
 template<typename T>
-class TString : public Container
+class TString : virtual public Container,virtual public IEquals,virtual public IHashCode
 {
 protected:
 	T* m_data;
@@ -24,6 +26,8 @@ public:
 	virtual TString<T>& operator=(const T* str);
 	virtual TString<T>& operator=(const TString<T> & str);
 	virtual TString<T>& operator=(TString<T> && str);
+	virtual bool equals(const IEquals& val);
+	virtual int hashcode();
 	virtual operator T*();
 	virtual T* data();
 	virtual int size();
@@ -443,8 +447,8 @@ TString<T>& TString<T>::operator=(const TString<T> & str)
 	if (this == &str){
 		return *this;
 	}
-	this->m_size = 0;
 	int size = str.m_size;
+	this->m_size = size;
 	this->autoCapital(size+1);
 	this->m_data[size] = (T)0;
 	for (int i = 0; i < size; i++){
@@ -463,6 +467,24 @@ TString<T>& TString<T>::operator=(TString<T> && str)
 	str.m_size = 0;
 	str.m_capital = 0;
 	return *this;
+}
+
+template<typename T>
+bool TString<T>::equals(const IEquals& val)
+{
+	const TString<T>& str = dynamic_cast<const TString<T>&>(val);
+    //TString<T>& str=(TString<T>&)val;
+    return this->equals(str);
+}
+
+template<typename T>
+int TString<T>::hashcode()
+{
+    int code=0;
+    for(int i=0;i<this->m_size;i++){
+		code += (int)((int)(this->m_data[i])*(31.0 / 7));
+    }
+    return code;
 }
 
 template<typename T>
@@ -1213,6 +1235,7 @@ int TString<T>::compareTo(const TString<T>& str)
 		if (this->m_data[i] < str.m_data[i]){
 			return -1;
 		}
+		i++;
 	}
 	if (i != str.m_size){
 		return -1;

@@ -131,8 +131,7 @@ int HashSet<T>::indexOfHash(int hash)
 {
 	double dhash = hash;
 	while (dhash < this->m_capital){
-		dhash = (dhash*11.0 / 7);
-	
+		dhash = (dhash * 31.0 / 7);
 	}
 	hash = (int)dhash;
 	return ((unsigned int)(hash)) % this->m_capital;
@@ -166,7 +165,7 @@ void HashSet<T>::put(const T& val)
 		ArrayList<T> arr;
 		arr.add(val);
 		this->m_data.add(arr);
-		this->m_map[idx] = 1;
+		this->m_map[idx] = this->m_data.size();
 		this->m_size++;
 		this->autoCapitalReHash();
 	}
@@ -180,18 +179,11 @@ void HashSet<T>::put(const T& val)
 			}
 		}
 		(this->m_data.get(idx)).add(val);
-		this->m_map[idx] = 1;
+		this->m_map[idx] = this->m_data.size();
 		this->m_size++;
 		this->autoCapitalReHash();
 	}
 
-	for (int i = 0; i < this->m_data.size(); i++){
-		printf("->\n");
-		for (int j = 0; j < this->m_data.get(i).size(); j++){
-			printf("\t->%d\n",(int)this->m_data.get(i).get(j));
-		}
-	}
-	printf("-----------------------\n");
 }
 
 template<typename T>

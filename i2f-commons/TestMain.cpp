@@ -15,6 +15,7 @@
 #include"i2f\commons\codec\Codec.h"
 #include"i2f\commons\base\String.hpp"
 #include"i2f\commons\container\HashSet.hpp"
+#include"i2f\commons\container\HashMap.h"
 
 void showList(IIterable<Base<int>>& list)
 {
@@ -31,9 +32,70 @@ LinkList<Base<int>> getList()
 	return ret;
 }
 
+void showHashMap(IIterator<Entry<Base<int>, Base<int>>>* it){
+	printf("{");
+	while (it->hasNext()){
+		Entry<Base<int>, Base<int>> e = it->next();
+		printf("%d£º%d,", (int)e.gkey(), (int)e.gval());
+	}
+	printf("}\n");
+	delete it;
+}
+
+void showHashMap2(IIterator<Entry<String, Integer>>* it){
+	printf("{");
+	while (it->hasNext()){
+		Entry<String, Integer> e = it->next();
+		printf("%s£º%d,", e.gkey().data(), (int)e.gval());
+	}
+	printf("}\n");
+	delete it;
+}
+
+void testHashMap2()
+{
+	HashMap<String, Integer> map;
+	map.put(String("jack"), Integer(1));
+	map.put(String("tom"), Integer(2));
+	map.put(String("aimy"), Integer(3));
+	map.put(String("alise"), Integer(4));
+	map.put(String("tom"), Integer(1));
+	Integer val = map.get(String("tom"));
+	map.remove(String("tom"));
+	bool ex = map.contains(String("tom"));
+	showHashMap2(map.iterator());
+}
+
+void testHashMap1()
+{
+	HashMap<Base<int>, Base<int>> map;
+	showHashMap(map.iterator());
+	map.put(Base<int>(1), Base<int>(1));
+	showHashMap(map.iterator());
+	map.put(Base<int>(2), Base<int>(2));
+	showHashMap(map.iterator());
+	map.put(Base<int>(3), Base<int>(3));
+	showHashMap(map.iterator());
+	map.put(Base<int>(4), Base<int>(4));
+	showHashMap(map.iterator());
+	map.put(Base<int>(5), Base<int>(5));
+	showHashMap(map.iterator());
+	map.put(Base<int>(5), Base<int>(6));
+	showHashMap(map.iterator());
+	bool ex5 = map.contains(Base<int>(5));
+	map.remove(Base<int>(5));
+	showHashMap(map.iterator());
+	ex5 = map.contains(Base<int>(5));
+	bool ex6=map.contains(Base<int>(6));
+	Base<int> b3=map.get(Base<int>(3));
+	showHashMap(map.iterator());
+}
 
 int main()
 {
+	testHashMap2();
+	testHashMap1();
+
 	HashSet<Base<int>> set;
 	set.put(Base<int>(1));
 	set.put(Base<int>(2));
