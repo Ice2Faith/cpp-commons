@@ -16,6 +16,7 @@
 #include"i2f\commons\base\String.hpp"
 #include"i2f\commons\container\HashSet.hpp"
 #include"i2f\commons\container\HashMap.h"
+#include"i2f\commons\encode\Basex.hpp"
 
 void showList(IIterable<Base<int>>& list)
 {
@@ -91,8 +92,54 @@ void testHashMap1()
 	showHashMap(map.iterator());
 }
 
+void testBasex(){
+	/*
+	bitCount=6
+	rv:11110000 11001100 00001111 01011010 10100101 00 00000000
+	in:11110000 11001100 00001111 01011010 10100101
+	ot:00111100 00001100 00110000 00001111 00010110 00101010 00010100 00000000
+	bitCount=5
+	rv:11110000 11001100 00001111 01011010 10100101
+	in:11110000 11001100 00001111 01011010 10100101
+	ot:00011110 00000011 00000110 00000000 00011110 00010110 00010101 00000101
+	bitCount=3
+	rv:11110000 11001100 00001111 01011010 10100101 00 000 000
+	in:11110000 11001100 00001111 01011010 10100101
+	ot:00000111 00000100 00000001 00000100 00000110 00000000 00000001 00000111 00000010 00000110 00000101 00000010 00000010 00000100 00000000 00000000
+	*/
+	Array<byte> in(5);
+	in[0] = 0xf0;
+	in[1] = 0xcc;
+	in[2] = 0x0f;
+	in[3] = 0x5a;
+	in[4] = 0xa5;
+
+	int bitCount = 5;
+
+	Array<byte> out = Basex::encode(in, bitCount);
+
+	ArrayList<char> vin=Codec::visualMemoryHex2(in.data(), in.size(), false);
+	ArrayList<char> vout = Codec::visualMemoryHex2(out.data(), out.size(), false);
+
+	
+
+	Array<byte> rvo = Basex::decode(out, bitCount);
+	ArrayList<char> vrvo = Codec::visualMemoryHex2(rvo.data(), rvo.size(), false);
+	printf("rv:%s\n", vrvo.data());
+	printf("in:%s\n", vin.data());
+	printf("ot:%s\n", vout.data());
+
+	Array<char> ech=Base64::encode(in);
+	Array<byte> dch = Base64::decode(ech);
+	printf("ech:%s\n", ech.data());
+	ArrayList<char> vdch = Codec::visualMemoryHex2(dch.data(), dch.size(), false);
+	printf("dch:%s\n", vdch.data());
+
+}
+
 int main()
 {
+	testBasex();
 	testHashMap2();
 	testHashMap1();
 

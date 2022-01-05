@@ -105,7 +105,9 @@
     <ClInclude Include="i2f\commons\container\Stack.h" />
     <ClInclude Include="i2f\commons\data\BinaryTreeNode.hpp" />
     <ClInclude Include="i2f\commons\data\DoubleListNode.hpp" />
+    <ClInclude Include="i2f\commons\data\Entry.hpp" />
     <ClInclude Include="i2f\commons\data\SingleListNode.hpp" />
+    <ClInclude Include="i2f\commons\encode\Basex.hpp" />
     <ClInclude Include="i2f\commons\graphics\g2d\g2d.h" />
     <ClInclude Include="i2f\commons\graphics\g2d\Line2d.h" />
     <ClInclude Include="i2f\commons\graphics\g2d\Point2d.h" />
