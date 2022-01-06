@@ -25,6 +25,72 @@ cpp commons
 - Iterator,Iterable
 - Closeable
 - ...
+# coding like?
+- declare first
+	- this demo code maybe will diffirent while new update was submitted.
+## include like import
+```c++
+#include"i2f\commons\io\FileInputStream.hpp"
+#include"i2f\commons\io\FileOutputStream.hpp"
+#include"i2f\commons\io\IoUtil.hpp"
+#include"i2f\commons\io\ByteArrayInputStream.hpp"
+#include"i2f\commons\io\ByteArrayOutputStream.hpp"
+#include"i2f\commons\date\Date.hpp"
+#include"i2f\commons\codec\StringCodec.h"
+```
+## io stream
+```c++
+	char * isFile = "D:\\01test\\io\\src.txt";
+	char * osFile = "D:\\01test\\io\\dst.txt";
+	FileInputStream fis(isFile);
+	FileOutputStream fos(osFile);
+
+	ByteArrayOutputStream bos;
+	IoUtil::copyStream(fis, bos);
+
+	ByteArrayInputStream bis(bos.toByteArray());
+
+	IoUtil::copyStream(bis, fos);
+```
+## charset & string & io stream
+```c++
+	char * isFile = "D:\\01test\\io\\src-gbk.txt";
+	char * osFile = "D:\\01test\\io\\dst-utf8.txt";
+	FileInputStream fis(isFile);
+	FileOutputStream fos(osFile);
+
+	U32String ustr = StringCodec::stringOf(fis, StringCodec::GBK);
+	Array<byte> data = StringCodec::stringTo(ustr, StringCodec::UTF8);
+
+	fos.write(data);
+	
+	fis.close();
+	fos.close();
+
+	isFile = osFile;
+	osFile = "D:\\01test\\io\\rec-gbk.txt";
+	fis = FileInputStream(isFile);
+	fos = FileOutputStream(osFile);
+
+	system("cls");
+	U32String ustr2 = StringCodec::stringOf(fis, StringCodec::UTF8);
+	bool eq = ustr2.equals(ustr);
+	Array<byte> data2 = StringCodec::stringTo(ustr2, StringCodec::GBK);
+
+	fos.write(data2);
+
+	fis.close();
+	fos.close();
+```
+## date
+```c++
+	Date now;
+	printf("%d-%d-%d %d:%d:%d week:%d\n", 
+		now.year(), now.month(), now.day(), now.hour(), now.minus(), now.second(), now.week());
+	now.day(now.day() + 1);
+	printf("%d-%d-%d %d:%d:%d week:%d\n", 
+		now.year(), now.month(), now.day(), now.hour(), now.minus(), now.second(), now.week());
+```
 # about me?
 - I'm a develper , job with java
 - but, some little tool perfer use c++
