@@ -17,6 +17,13 @@
 #include"i2f\commons\container\HashSet.hpp"
 #include"i2f\commons\container\HashMap.h"
 #include"i2f\commons\encode\Basex.hpp"
+#include"i2f\commons\encode\Hexx.hpp"
+#include"i2f\commons\io\FileInputStream.hpp"
+#include"i2f\commons\io\FileOutputStream.hpp"
+#include"i2f\commons\io\IoUtil.hpp"
+#include"i2f\commons\io\ByteArrayInputStream.hpp"
+#include"i2f\commons\io\ByteArrayOutputStream.hpp"
+#include"i2f\commons\date\Date.hpp"
 
 void showList(IIterable<Base<int>>& list)
 {
@@ -39,7 +46,7 @@ void showHashMap(IIterator<Entry<Base<int>, Base<int>>>* it){
 		Entry<Base<int>, Base<int>> e = it->next();
 		printf("%d£º%d,", (int)e.gkey(), (int)e.gval());
 	}
-	printf("}\n");
+	printf("}\n"); 
 	delete it;
 }
 
@@ -137,8 +144,51 @@ void testBasex(){
 
 }
 
+void testHexx(){
+	double num = (4.0/3);
+	int base = 10;
+	Array<char> hex = Hex36::toHex(num, base);
+	printf("hx:%s\n", hex.data());
+	double rnum = Hex36::ofHex(hex, base);
+	printf("rn:%.10lf\n", rnum);
+	printf("nm:%.10lf\n", num);
+
+	getchar();
+}
+
+void testIo(){
+	char * isFile = "D:\\01test\\io\\src.txt";
+	char * osFile = "D:\\01test\\io\\dst.txt";
+	FileInputStream fis(isFile);
+	FileOutputStream fos(osFile);
+
+	ByteArrayOutputStream bos;
+	IoUtil::copyStream(fis, bos);
+
+	ByteArrayInputStream bis(bos.toByteArray());
+
+	IoUtil::copyStream(bis, fos);
+
+	getchar();
+}
+
+void testDate()
+{
+	Date now;
+	printf("%d-%d-%d %d:%d:%d week:%d\n", now.year(), now.month(), now.day(), now.hour(), now.minus(), now.second(), now.week());
+	now.day(now.day() + 1);
+	printf("%d-%d-%d %d:%d:%d week:%d\n", now.year(), now.month(), now.day(), now.hour(), now.minus(), now.second(), now.week());
+	getchar();
+}
+
 int main()
 {
+	testDate();
+
+	testIo();
+
+	testHexx();
+
 	testBasex();
 	testHashMap2();
 	testHashMap1();

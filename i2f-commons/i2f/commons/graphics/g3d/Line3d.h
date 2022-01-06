@@ -1,5 +1,6 @@
 #ifndef _I2F_LINE3D_H_
 #define _I2F_LINE3D_H_
+
 #include"Point3d.h"
 #include<math.h>
 

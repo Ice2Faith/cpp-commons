@@ -1,5 +1,6 @@
 #ifndef _I2F_IDOUBLE_DIRECTION_ITERATOR_H_
 #define _I2F_IDOUBLE_DIRECTION_ITERATOR_H_
+
 #include"IIterator.h"
 #include"IReverseIterator.h"
 

@@ -1,5 +1,6 @@
 #ifndef _I2F_DEFAULT_COMPARATOR_H_
 #define _I2F_DEFAULT_COMPARATOR_H_
+
 #include"../IComparator.h"
 #include"../../base/Base.hpp"
 

@@ -1,6 +1,7 @@
 #ifndef _I2F_IITERATOR_H_
 #define _I2F_IITERATOR_H_
 
+
 template<typename T>
 class IIterator
 {

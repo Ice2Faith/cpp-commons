@@ -1,6 +1,7 @@
 #ifndef _I2F_POINT2D_H_
 #define _I2F_POINT2D_H_
 
+
 template<typename T>
 class  Point2d
 {

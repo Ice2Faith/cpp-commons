@@ -1,5 +1,6 @@
 #ifndef _I2F_HASH_SET_H_
 #define _I2F_HASH_SET_H_
+
 #include"Set.h"
 #include"Container.h"
 #include"../interface/IHashCode.h"

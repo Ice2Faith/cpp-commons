@@ -1,6 +1,7 @@
 #ifndef _I2F_IRANDOM_ACCESSOR_H_
 #define _I2F_IRANDOM_ACCESSOR_H_
 
+
 template<typename T>
 class IRandomAccessor
 {

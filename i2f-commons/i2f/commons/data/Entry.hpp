@@ -1,6 +1,7 @@
 #ifndef _I2F_ENTRY_H_
 #define _I2F_ENTRY_H_
 
+
 template<typename T,typename E>
 class Entry
 {

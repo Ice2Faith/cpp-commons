@@ -1,5 +1,6 @@
 #ifndef _I2F_ADAPT_EXECUTOR_H_
 #define _I2F_ADAPT_EXECUTOR_H_
+
 #include"../IExecutor.h"
 #include"../../container/LinkList.hpp"
 

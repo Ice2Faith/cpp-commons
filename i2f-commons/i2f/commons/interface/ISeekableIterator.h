@@ -1,5 +1,6 @@
 #ifndef _I2F_ISEEKABLE_ITERATOR_H_
 #define _I2F_ISEEKABLE_ITERATOR_H_
+
 #include"IIterator.h"
 
 template<typename T>

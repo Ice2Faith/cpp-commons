@@ -1,5 +1,6 @@
 #ifndef _I2F_QUEUE_H_
 #define _I2F_QUEUE_H_
+
 #include"Container.h"
 template<typename T>
 class Queue : virtual public Container

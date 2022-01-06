@@ -18,18 +18,132 @@
     <ClCompile Include="TestMain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="i2f\commons\io\InputStream.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="i2f\commons\io\Reader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="i2f\commons\io\Scanner.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="i2f\commons\io\FileOutputStream.hpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="i2f\commons\algorithm\Function.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\algorithm\Route.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\base\Base.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\base\Object.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\base\String.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\codec\Codec.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\Array.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\ArrayList.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\Container.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\HashMap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\HashSet.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\LinkList.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\List.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\Map.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\Matrix2.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\MultiList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\Queue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\Set.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\container\Stack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\data\BinaryTreeNode.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\data\DoubleListNode.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\data\Entry.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\data\SingleListNode.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\encode\Basex.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\encode\Hexx.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\graphics\g2d\g2d.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\graphics\g2d\Line2d.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\graphics\g2d\Point2d.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\graphics\g3d\g3d.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\graphics\g3d\Line3d.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\graphics\g3d\Point3d.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\graphics\Graphics.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\impl\AdaptExecutor.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\impl\DefaultComparator.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\impl\PrintExecutor.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\Closeable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="i2f\commons\interface\IComparator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\IDoubleDirectionIterator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\IEquals.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="i2f\commons\interface\IExecutor.h">
@@ -38,46 +152,10 @@
     <ClInclude Include="i2f\commons\interface\IFilter.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="i2f\commons\interface\IMapper.h">
+    <ClInclude Include="i2f\commons\interface\IHashCode.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="i2f\commons\io\InputStream.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\io\Reader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\io\Scanner.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\container\Queue.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\container\Stack.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\base\Base.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\data\SingleListNode.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\data\DoubleListNode.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\data\BinaryTreeNode.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\container\ArrayList.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\container\LinkList.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\container\MultiList.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\container\List.h">
+    <ClInclude Include="i2f\commons\interface\IHashEquals.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="i2f\commons\interface\IIterable.h">
@@ -86,64 +164,7 @@
     <ClInclude Include="i2f\commons\interface\IIterator.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="i2f\commons\container\Array.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\algorithm\Function.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\interface\impl\PrintExecutor.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\interface\impl\DefaultComparator.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\interface\impl\AdaptExecutor.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\container\Matrix2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\graphics\g2d\Point2d.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\graphics\g3d\Point3d.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\graphics\g2d\g2d.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\graphics\g3d\g3d.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\graphics\g2d\Line2d.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\graphics\g3d\Line3d.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\graphics\Graphics.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\math\Math.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\algorithm\Route.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\container\Container.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\codec\Codec.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\base\String.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\commons\base\Object.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="i2f\dev\Dev.hpp">
+    <ClInclude Include="i2f\commons\interface\IMapper.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="i2f\commons\interface\IRandomAccessor.h">
@@ -155,28 +176,34 @@
     <ClInclude Include="i2f\commons\interface\ISeekableIterator.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="i2f\commons\interface\IDoubleDirectionIterator.h">
+    <ClInclude Include="i2f\commons\io\InputStream.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="i2f\commons\container\Map.h">
+    <ClInclude Include="i2f\commons\io\Reader.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="i2f\commons\interface\IHashCode.h">
+    <ClInclude Include="i2f\commons\io\Scanner.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="i2f\commons\container\Set.h">
+    <ClInclude Include="i2f\commons\math\Math.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="i2f\commons\interface\IEquals.h">
+    <ClInclude Include="i2f\dev\Dev.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="i2f\commons\interface\IHashEquals.h">
+    <ClInclude Include="i2f\commons\io\OutputStream.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="i2f\commons\container\HashMap.h">
+    <ClInclude Include="i2f\commons\io\IoUtil.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="i2f\commons\container\HashSet.hpp">
+    <ClInclude Include="i2f\commons\io\FileInputStream.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\io\ByteArrayInputStream.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\io\ByteArrayOutputStream.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,6 @@
 #ifndef _I2F_MATRIX_2_H_
 #define _I2F_MATRIX_2_H_
+
 #include"Array.hpp"
 
 template<typename T>

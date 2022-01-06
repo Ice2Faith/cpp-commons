@@ -1,6 +1,7 @@
 #ifndef _I2F_ICOMPARATOR_H_
 #define _I2F_ICOMPARATOR_H_
 
+
 template<typename T>
 class IComparator
 {

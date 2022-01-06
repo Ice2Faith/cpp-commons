@@ -1,5 +1,6 @@
 #ifndef _I2F_IHASH_EQUALS_H_
 #define _I2F_IHASH_EQUALS_H_
+
 #include"IHashCode.h"
 #include"IEquals.h"
 

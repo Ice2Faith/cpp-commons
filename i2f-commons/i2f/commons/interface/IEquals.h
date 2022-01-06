@@ -1,6 +1,7 @@
 #ifndef _I2F_IEQUALS_H_
 #define _I2F_IEQUALS_H_
 
+
 class IEquals
 {
 public:

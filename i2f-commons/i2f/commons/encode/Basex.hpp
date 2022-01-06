@@ -1,5 +1,6 @@
 #ifndef _I2F_BASEX_H_
 #define _I2F_BASEX_H_
+
 #include"../base/Base.hpp"
 #include"../container/Array.hpp"
 #include"../container/ArrayList.hpp"

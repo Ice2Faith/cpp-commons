@@ -1,6 +1,7 @@
 #ifndef _I2F_IMAPPER_H_
 #define _I2F_IMAPPER_H_
 
+
 template<typename T,typename E>
 class IMapper
 {

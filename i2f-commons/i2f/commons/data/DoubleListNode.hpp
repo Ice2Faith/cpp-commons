@@ -1,6 +1,7 @@
 #ifndef _I2F_DOUBLE_LIST_NODE_H_
 #define _I2F_DOUBLE_LIST_NODE_H_
 
+
 template<typename T>
 class DoubleListNode
 {

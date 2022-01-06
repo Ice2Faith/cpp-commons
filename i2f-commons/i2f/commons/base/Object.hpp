@@ -1,5 +1,6 @@
 #ifndef _I2F_OBJECT_H_
 #define _I2F_OBJECT_H_
+
 #include"String.hpp"
 #include"../interface/IEquals.h"
 #include"../interface/IHashcode.h"

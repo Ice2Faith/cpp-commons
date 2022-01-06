@@ -1,5 +1,6 @@
 #ifndef _I2F_STACK_H_
 #define _I2F_STACK_H_
+
 #include"Container.h"
 
 template<typename T>

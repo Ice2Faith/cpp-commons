@@ -1,7 +1,9 @@
 #ifndef _I2F_ARRAY_H_
 #define _I2F_ARRAY_H_
+
 #include"../interface/IIterable.h"
 #include"List.h"
+#include<stdio.h>
 
 template<typename T>
 class Array : virtual public IIterable<T>
@@ -10,6 +12,7 @@ private:
 	int m_size;
 	T * m_data;
 public:
+	
 	Array();
 
 	Array(int size);
@@ -50,6 +53,9 @@ public:
 
 	virtual void of(List<T>& list, int from, int count);
 
+	void expand(int count);
+
+
 };
 
 template<typename T>
@@ -65,6 +71,25 @@ Array<T>::Array(int size)
 	this->m_size = size;
 	this->m_data = new T[size];
 }
+
+template<typename T>
+void Array<T>::expand(int count)
+{
+	if (count <= 0){
+		return;
+	}
+	int nsize = this->m_size + count;
+	T* ndata = new T[nsize];
+	if (this->m_data != NULL){
+		for (int i = 0; i < this->m_size; i++){
+			ndata[i] = this->m_data[i];
+		}
+		delete[] this->m_data;
+	}
+	this->m_size = nsize;
+	this->m_data = ndata;
+}
+
 
 template<typename T>
 Array<T>::Array(T data[], int count)

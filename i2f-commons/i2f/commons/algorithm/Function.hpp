@@ -1,11 +1,11 @@
 #ifndef _I2F_FUNCTION_H_
 #define _I2F_FUNCTION_H_
+
 #include"../interface/IExecutor.h"
 #include"../interface/IIterable.h"
 #include"../interface/IIterator.h"
 #include"../interface/IComparator.h"
 #include"../interface/impl/AdaptExecutor.hpp"
-
 
 class Function 
 {

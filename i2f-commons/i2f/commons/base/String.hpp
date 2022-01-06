@@ -1,5 +1,6 @@
 #ifndef _I2F_STRING_H_
 #define _I2F_STRING_H_
+
 #include"../container/Container.h"
 #include"../codec/Codec.h"
 #include"../interface/IHashcode.h"
