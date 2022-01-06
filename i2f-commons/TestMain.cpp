@@ -24,6 +24,7 @@
 #include"i2f\commons\io\ByteArrayInputStream.hpp"
 #include"i2f\commons\io\ByteArrayOutputStream.hpp"
 #include"i2f\commons\date\Date.hpp"
+#include"i2f\commons\codec\StringCodec.h"
 
 void showList(IIterable<Base<int>>& list)
 {
@@ -181,8 +182,73 @@ void testDate()
 	getchar();
 }
 
+void testGbk()
+{
+	char ch[] = { "Å@" };
+	ArrayList<char> arr = Codec::visualMemoryHex16(ch, 2, false);
+	printf("%s\n", arr.data());
+
+	int from = 0;
+	UniChar32 u32 = 0;
+	int ret=Codec::readNextGbkChar2UniChar32((byte *)ch,3, &from, &u32);
+
+	arr = Codec::visualMemoryHex16(&u32, 4, true);
+	printf("%s\n", arr.data());
+
+	Array<byte> data=Codec::writeUniChar32AsUtf8Chars(u32);
+
+	FileOutputStream fos("D:\\01test\\io\\utf8.txt");
+	fos.write(data);
+	fos.close();
+
+	Array<byte> data1 = Codec::writeUniChar32AsGbkChars(u32);
+
+	FileOutputStream fos1("D:\\01test\\io\\gbk.txt");
+	fos1.write(data1);
+	fos1.close();
+
+	getchar();
+}
+
+void testUnicodeString()
+{
+	char * isFile = "D:\\01test\\io\\src-gbk.txt";
+	char * osFile = "D:\\01test\\io\\dst-utf8.txt";
+	FileInputStream fis(isFile);
+	FileOutputStream fos(osFile);
+
+	U32String ustr = StringCodec::stringOf(fis, StringCodec::GBK);
+	Array<byte> data = StringCodec::stringTo(ustr, StringCodec::UTF8);
+
+	fos.write(data);
+	
+	fis.close();
+	fos.close();
+
+	isFile = osFile;
+	osFile = "D:\\01test\\io\\rec-gbk.txt";
+	fis = FileInputStream(isFile);
+	fos = FileOutputStream(osFile);
+
+	system("cls");
+	U32String ustr2 = StringCodec::stringOf(fis, StringCodec::UTF8);
+	bool eq = ustr2.equals(ustr);
+	Array<byte> data2 = StringCodec::stringTo(ustr2, StringCodec::GBK);
+
+	fos.write(data2);
+
+	fis.close();
+	fos.close();
+
+	getchar();
+}
+
 int main()
 {
+	testUnicodeString();
+
+	testGbk();
+
 	testDate();
 
 	testIo();
@@ -249,7 +315,7 @@ int main()
 
 	int idx = 0;
 	UniChar32 c32=0;
-	bool ret = Codec::readNextUtf8Char2UniChar32(buf, &idx, &c32);
+	int ret = Codec::readNextUtf8Char2UniChar32(buf,sizeof(buf)/sizeof(buf[0]), &idx, &c32);
 
 	UniChar32 pc32 = c32;
 	for (int i = 0; i < 32; i++){

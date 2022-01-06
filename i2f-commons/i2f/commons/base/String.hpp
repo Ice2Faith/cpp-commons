@@ -178,6 +178,7 @@ public:
 };
 
 typedef TString<char> String;
+typedef TString<unsigned char> AString;
 
 template<typename T>
 class TUString : virtual public TString<T>
@@ -198,12 +199,14 @@ public:
 
 U32String& U32String::ofUtf8(const byte * data)
 {
+	int size = 0;
+	while (data[size++] != 0);
 	int count = 0;
 	int idx = 0;
 	while (true){
 		UniChar32 ch = 0;
-		bool success = Codec::readNextUtf8Char2UniChar32(data, &idx, &ch);
-		if (success){
+		int success = Codec::readNextUtf8Char2UniChar32(data,size, &idx, &ch);
+		if (success==1){
 			this->autoCapital(count + 2);
 			this->m_data[count] = ch;
 			this->m_data[count + 1] = (UniChar32)0;
@@ -220,10 +223,13 @@ U32String& U32String::ofUtf8(const byte * data)
 }
 U32String& U32String::ofUtf8(const byte * data, int * from)
 {
+	int size = 0;
+	while (data[(*from) + (size++)] != 0);
+	size += (*from);
 	int count = 0;
 	while (true){
 		UniChar32 ch = 0;
-		bool success = Codec::readNextUtf8Char2UniChar32(data, from, &ch);
+		int success = Codec::readNextUtf8Char2UniChar32(data,size, from, &ch);
 		if (success){
 			this->autoCapital(count + 2);
 			this->m_data[count] = ch;
@@ -260,12 +266,14 @@ public:
 
 U16String& U16String::ofUtf8(const byte * data)
 {
+	int size = 0;
+	while (data[size++]!=0);
 	int count = 0;
 	int idx = 0;
 	while (true){
 		UniChar16 ch = 0;
-		bool success = Codec::readNextUtf8Char2UniChar16(data, &idx, &ch);
-		if (success){
+		int success = Codec::readNextUtf8Char2UniChar16(data,size, &idx, &ch);
+		if (success==1){
 			this->autoCapital(count + 2);
 			this->m_data[count] = ch;
 			this->m_data[count + 1] = (UniChar16)0;
@@ -282,11 +290,14 @@ U16String& U16String::ofUtf8(const byte * data)
 }
 U16String& U16String::ofUtf8(const byte * data, int * from)
 {
+	int size = 0;
+	while (data[(*from) + (size++)] != 0);
+	size += (*from);
 	int count = 0;
 	while (true){
 		UniChar16 ch = 0;
-		bool success = Codec::readNextUtf8Char2UniChar16(data, from, &ch);
-		if (success){
+		int success = Codec::readNextUtf8Char2UniChar16(data,size, from, &ch);
+		if (success==1){
 			this->autoCapital(count + 2);
 			this->m_data[count] = ch;
 			this->m_data[count + 1] = (UniChar16)0;
@@ -722,7 +733,7 @@ TString<T> TString<T>::substring(int from, int count)
 template<typename T>
 TString<T>& TString<T>::appendChar(T ch)
 {
-	this->autoCapital(this->m_size + 1);
+	this->autoCapital(this->m_size + 2);
 	this->m_data[this->m_size] = ch;
 	this->m_size++;
 	this->m_data[this->m_size] = (T)0;

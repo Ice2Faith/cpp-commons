@@ -206,5 +206,26 @@
     <ClInclude Include="i2f\commons\io\ByteArrayOutputStream.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="i2f\commons\date\Date.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\codec\GbkDict.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\filesys\File.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\codec\StringCodec.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\codec\ICodec.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\codec\GbkCodec.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\codec\Utf8Codec.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

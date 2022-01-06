@@ -1,10 +1,10 @@
 #ifndef _I2F_CODEC_H_
 #define _I2F_CODEC_H_
 
-#include"../base/Base.hpp"
-#include"../container/ArrayList.hpp"
-#include"../container/Array.hpp"
 #include<stdio.h>
+
+#include"GbkCodec.h"
+#include"Utf8Codec.h"
 
 typedef unsigned short UniChar16;
 typedef unsigned int UniChar32;
@@ -17,10 +17,23 @@ public:
 	virtual ~Codec();
 	static bool isBigEndian();
 	static bool isLittleEndian();
-	static bool readNextUtf8Char2UniChar16(const byte * ch,int * from,UniChar16 * save);
-	static bool readNextUtf8Char2UniChar32(const byte * ch, int * from, UniChar32 * save);
+
+	/*
+	参数解释：
+	ch数据的来源，size可用的数据大小,from从数据的什么位置读取,save保存数据的地方
+	返回值解释：
+	1正常，0数据不够，-1无法解析
+	*/
+	static int readNextUtf8Char2UniChar16(const byte * ch,int size,int * from,UniChar16 * save);
+	static int readNextUtf8Char2UniChar32(const byte * ch,int size, int * from, UniChar32 * save);
 	static Array<byte> writeUniChar32AsUtf8Chars(UniChar32 u32);
 	static Array<byte> writeUniChar16AsUtf8Chars(UniChar16 u16);
+
+	static int readNextGbkChar2UniChar16(const byte * ch, int size, int * from, UniChar16 * save);
+	static int readNextGbkChar2UniChar32(const byte * ch, int size, int * from, UniChar32 * save);
+	static Array<byte> writeUniChar32AsGbkChars(UniChar32 u32);
+	static Array<byte> writeUniChar16AsGbkChars(UniChar16 u16);
+
 	/*
 	可视化内存
 	给定数据data的指针，给定data的大小size
@@ -56,123 +69,48 @@ bool Codec::isLittleEndian()
 	return p[0] == 0x78;
 }
 
-bool Codec::readNextUtf8Char2UniChar16(const byte * ch, int * from, UniChar16 * save)
+int Codec::readNextUtf8Char2UniChar16(const byte * ch, int size, int * from, UniChar16 * save)
 {
-	UniChar32 ch32 = 0;
-	bool ret = Codec::readNextUtf8Char2UniChar32(ch, from, &ch32);
-	*save = (UniChar16)ch32;
-	if (!ret){
-		return ret;
-	}
-	if (*save != ch32){
-		return false;
-	}
-	return true;
+	ICodec& codec = Utf8Codec();
+	return codec.readUniChar16(ch, size, from, save);
 }
-bool Codec::readNextUtf8Char2UniChar32(const byte * ch, int * from, UniChar32 * save)
+int Codec::readNextUtf8Char2UniChar32(const byte * ch, int size, int * from, UniChar32 * save)
 {
-	bool ret = true;
-	byte bt = ch[*from+0];
-	if (bt & 0x80){
-		int count = 0;
-		while (bt & 0x80){
-			count++;
-			if (count >= 8){
-				break;
-			}
-			bt <<= 1;
-		}
-		if (count == 0 || count >= 8){
-			ret = false;
-		}
-		else
-		{
-			UniChar32 c32 = 0;
-			int bitCount = 8 - count - 1;
-			int mask = 0;
-			for (int i = 0; i < bitCount; i++){
-				mask <<= 1;
-				mask |= 1;
-			}
-			c32 |= ch[*from + 0] & mask;
-
-			for (int i = 1; i < count; i++){
-				c32 <<= 6;
-				c32 |= (ch[*from+i] & 0x3f);
-			}
-			*save = c32;
-			*from += count;
-		}
-	}
-	else{
-		*save = bt;
-		*from++;
-	}
-	return ret;
+	ICodec& codec = Utf8Codec();
+	return codec.readUniChar32(ch, size, from, save);
 }
 
 Array<byte> Codec::writeUniChar16AsUtf8Chars(UniChar16 u16)
 {
-	return Codec::writeUniChar32AsUtf8Chars((UniChar32)u16);
+	ICodec& codec = Utf8Codec();
+	return codec.writeUniChar16(u16);
 }
 
 Array<byte> Codec::writeUniChar32AsUtf8Chars(UniChar32 u32)
 {
-	ArrayList<byte> list(8);
-	if (u32 < 0x80){
-		list.add((byte)(u32 & 0xff));
-	}
-	else{
-		UniChar32 pch = u32;
-		int spaceBitCount = 0;
-		while ((pch & 0x80000000) ==0)
-		{
-			spaceBitCount++;
-			if (spaceBitCount >= 32){
-				break;
-			}
-			pch <<= 1;
-		}
-		int bitCount = 32 - spaceBitCount;
-		int b6Count = bitCount / 6;
-		int leftCount = bitCount % 6;
+	ICodec& codec = Utf8Codec();
+	return codec.writeUniChar32(u32);
+}
 
-		pch = u32;
-		for (int i = 0; i < b6Count; i++){
-			byte cch = 0x80 | (pch & 0x3f);
-			list.addFirst(cch);
-			pch >>= 6;
-		}
-		if (leftCount + b6Count+1 + 1>8){
-			// 最大UTF字节数：6
-			// 6位整部分：32/6=5--余数2
-			// 加上标识需要已字节：5+1=6
-			// 则标识位中，可用为：1111110x
-			// 仅1位可用，而最大余数为2，则unicode编码最大值应该为2^31
-		}
-		else{
-			byte cch = 0;
-			for (int i = 0; i < b6Count+1; i++){
-				cch <<= 1;
-				cch |= 1;
-			}
-			while ((cch & 0x80) == 0){
-				cch <<= 1;
-			}
-			int mask = 0;
-			for (int i = 0; i < leftCount; i++){
-				mask <<= 1;
-				mask |= 1;
-			}
-
-			cch |= pch & mask;
-			
-			list.addFirst(cch);
-		}
-	}
-	Array<byte> arr;
-	arr.of(list);
-	return arr;
+int Codec::readNextGbkChar2UniChar16(const byte * ch, int size, int * from, UniChar16 * save)
+{
+	ICodec& codec = GbkCodec();
+	return codec.readUniChar16(ch,size,from,save);
+}
+int Codec::readNextGbkChar2UniChar32(const byte * ch, int size, int * from, UniChar32 * save)
+{
+	ICodec& codec = GbkCodec();
+	return codec.readUniChar32(ch, size, from, save);
+}
+Array<byte> Codec::writeUniChar32AsGbkChars(UniChar32 u32)
+{
+	ICodec& codec = GbkCodec();
+	return codec.writeUniChar32(u32);
+}
+Array<byte> Codec::writeUniChar16AsGbkChars(UniChar16 u16)
+{
+	ICodec& codec = GbkCodec();
+	return codec.writeUniChar16(u16);
 }
 
 ArrayList<char> Codec::visualMemory(void * data, int size, int mode, bool isOne,bool endWithZero, bool splitByteBySpace)
