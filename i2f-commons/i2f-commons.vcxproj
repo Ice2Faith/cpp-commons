@@ -84,9 +84,12 @@
     <ClCompile Include="TestMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="i2f\commons\algorithm\Algorithem.hpp" />
+    <ClInclude Include="i2f\commons\algorithm\Arrays.hpp" />
     <ClInclude Include="i2f\commons\algorithm\Function.hpp" />
     <ClInclude Include="i2f\commons\algorithm\Route.hpp" />
     <ClInclude Include="i2f\commons\base\Base.hpp" />
+    <ClInclude Include="i2f\commons\base\IUString.h" />
     <ClInclude Include="i2f\commons\base\Object.hpp" />
     <ClInclude Include="i2f\commons\base\String.hpp" />
     <ClInclude Include="i2f\commons\codec\Codec.h" />
@@ -128,6 +131,7 @@
     <ClInclude Include="i2f\commons\interface\IDoubleDirectionIterator.h" />
     <ClInclude Include="i2f\commons\interface\IEquals.h" />
     <ClInclude Include="i2f\commons\interface\IExecutor.h" />
+    <ClInclude Include="i2f\commons\interface\IExEquals.h" />
     <ClInclude Include="i2f\commons\interface\IFilter.h" />
     <ClInclude Include="i2f\commons\interface\IHashCode.h" />
     <ClInclude Include="i2f\commons\interface\IHashEquals.h" />
@@ -135,11 +139,17 @@
     <ClInclude Include="i2f\commons\interface\IIterator.h" />
     <ClInclude Include="i2f\commons\interface\IMapper.h" />
     <ClInclude Include="i2f\commons\interface\impl\AdaptExecutor.hpp" />
+    <ClInclude Include="i2f\commons\interface\impl\ArrayRandomAccessor.h" />
+    <ClInclude Include="i2f\commons\interface\impl\DefaultExEquals.hpp" />
+    <ClInclude Include="i2f\commons\interface\impl\ArrayReadRandomAccessor.hpp" />
     <ClInclude Include="i2f\commons\interface\impl\DefaultComparator.hpp" />
     <ClInclude Include="i2f\commons\interface\impl\PrintExecutor.hpp" />
     <ClInclude Include="i2f\commons\interface\IRandomAccessor.h" />
+    <ClInclude Include="i2f\commons\interface\IReadRandomAccessor.h" />
     <ClInclude Include="i2f\commons\interface\IReverseIterator.h" />
     <ClInclude Include="i2f\commons\interface\ISeekableIterator.h" />
+    <ClInclude Include="i2f\commons\interface\IWriteRandomAccessor.h" />
+    <ClInclude Include="i2f\commons\interface\Sizeable.h" />
     <ClInclude Include="i2f\commons\io\ByteArrayInputStream.hpp" />
     <ClInclude Include="i2f\commons\io\ByteArrayOutputStream.hpp" />
     <ClInclude Include="i2f\commons\io\FileInputStream.hpp" />

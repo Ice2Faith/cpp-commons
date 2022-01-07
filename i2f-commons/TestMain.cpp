@@ -51,10 +51,10 @@ void showHashMap(IIterator<Entry<Base<int>, Base<int>>>* it){
 	delete it;
 }
 
-void showHashMap2(IIterator<Entry<String, Integer>>* it){
+void showHashMap2(IIterator<Entry<AString, Integer>>* it){
 	printf("{");
 	while (it->hasNext()){
-		Entry<String, Integer> e = it->next();
+		Entry<AString, Integer> e = it->next();
 		printf("%s£º%d,", e.gkey().data(), (int)e.gval());
 	}
 	printf("}\n");
@@ -63,15 +63,15 @@ void showHashMap2(IIterator<Entry<String, Integer>>* it){
 
 void testHashMap2()
 {
-	HashMap<String, Integer> map;
-	map.put(String("jack"), Integer(1));
-	map.put(String("tom"), Integer(2));
-	map.put(String("aimy"), Integer(3));
-	map.put(String("alise"), Integer(4));
-	map.put(String("tom"), Integer(1));
-	Integer val = map.get(String("tom"));
-	map.remove(String("tom"));
-	bool ex = map.contains(String("tom"));
+	HashMap<AString, Integer> map;
+	map.put(AString("jack"), Integer(1));
+	map.put(AString("tom"), Integer(2));
+	map.put(AString("aimy"), Integer(3));
+	map.put(AString("alise"), Integer(4));
+	map.put(AString("tom"), Integer(1));
+	Integer val = map.get(AString("tom"));
+	map.remove(AString("tom"));
+	bool ex = map.contains(AString("tom"));
 	showHashMap2(map.iterator());
 }
 
@@ -217,7 +217,7 @@ void testUnicodeString()
 	FileInputStream fis(isFile);
 	FileOutputStream fos(osFile);
 
-	U32String ustr = StringCodec::stringOf(fis, StringCodec::GBK);
+	Array<UniChar32> ustr = StringCodec::stringOf(fis, StringCodec::GBK);
 	Array<byte> data = StringCodec::stringTo(ustr, StringCodec::UTF8);
 
 	fos.write(data);
@@ -231,8 +231,8 @@ void testUnicodeString()
 	fos = FileOutputStream(osFile);
 
 	system("cls");
-	U32String ustr2 = StringCodec::stringOf(fis, StringCodec::UTF8);
-	bool eq = ustr2.equals(ustr);
+	Array<UniChar32> ustr2 = StringCodec::stringOf(fis, StringCodec::UTF8);
+	//bool eq = ustr2.equals(ustr);
 	Array<byte> data2 = StringCodec::stringTo(ustr2, StringCodec::GBK);
 
 	fos.write(data2);
@@ -243,8 +243,69 @@ void testUnicodeString()
 	getchar();
 }
 
+void testString()
+{
+	char p[] = { "nihao,Hello,ÄãºÃ£¬hello" };
+	String str;
+
+	Array<byte> arr((byte*)p,(sizeof(p)/sizeof(p[0])));
+	str.ofBytes(arr, StringCodec::GBK);
+
+	Array<byte> rarr=str.toBytes(StringCodec::UTF8);
+
+	bool eq = true;
+	int i = 0;
+	while (i < arr.size() && i < rarr.size()){
+		if (arr[i] != rarr[i]){
+			eq = false;
+			break;
+		}
+		i++;
+	}
+	getchar();
+}
+
+void testFastEq()
+{
+	char str1[] = {"hello,call me god"};
+	char str2[] = {"hello,call me god" };
+	TBasicString<char> ins;
+	int len = ins.slength(str1);
+	bool eq=ins.sequal(str1, str2, len);
+	printf("%d:%s\n",len,(eq?"true":"false"));
+
+	getchar();
+	
+}
+
+void testAlgo()
+{
+	int arr[] = {5,3,1,4,0,2};
+	int arrSize = sizeof(arr) / sizeof(arr[0]);
+
+	AlgoSort<int> sorter;
+	ArrayRandomAccessor<int> accessor(arr, arrSize);
+	DefaultComparator<int> comparator;
+	//sorter.heapSort(accessor, accessor.size(), comparator, false);
+	sorter.mergeSort(accessor, accessor.size(), comparator, false);
+
+
+
+	AlgoFind<int> finder;
+	int fexrs = finder.halfFindArray(arr, 2, 0, arrSize - 1);
+	int fnexrs = finder.halfFindArray(arr, 6, 0, arrSize - 1);
+
+	getchar();
+}
+
 int main()
 {
+	testAlgo();
+
+	testFastEq();
+
+	testString();
+
 	testUnicodeString();
 
 	testGbk();
@@ -279,17 +340,17 @@ int main()
 	delete sit;
 	printf("\n");
 
-	String str("abc");
-	String rpstr = str * 3;
+	AString str("abc");
+	AString rpstr = str * 3;
 	 str = str + "bbb";
-	String tst = "aaa" + str;
-	String ist = 1788669 + tst;
+	AString tst = "aaa" + str;
+	AString ist = 1788669 + tst;
 	str=str.toUpper();
 	str.append(str.isEmpty());
 	str.append(str.size());
 	str.append('A');
 	str.append((byte)0x25);
-	String str3 = str + 12.125;
+	AString str3 = str + 12.125;
 	printf("%s\n", (char*)str3);
 	
 	////11100100 10111000 10100101

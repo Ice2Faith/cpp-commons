@@ -9,14 +9,14 @@ class StringCodec
 public:
 	enum Charset{ ASCII = 0x00, GBK = 0x01, UTF8 = 0x02 };
 	//读取指定字符集的字符
-	static U32String stringOf(InputStream& is, Charset charset);
+	static Array<UniChar32> stringOf(InputStream& is, Charset charset);
 	//写出为指定字符集的字符数组
-	static Array<byte> stringTo(U32String& str, Charset charset);
+	static Array<byte> stringTo(Array<UniChar32>& str, Charset charset);
 };
 
-U32String StringCodec::stringOf(InputStream& is, Charset charset)
+Array<UniChar32> StringCodec::stringOf(InputStream& is, Charset charset)
 {
-	U32String ret;
+	ArrayList<UniChar32> ret;
 	Array<byte> buf(12);
 	int len = 0;
 	int idx = 0;
@@ -29,34 +29,34 @@ U32String StringCodec::stringOf(InputStream& is, Charset charset)
 			if (charset == ASCII){
 				ch = 0;
 				ch = buf[from++];
-				ret.appendChar(ch);
+				ret.add(ch);
 			}
 			else if (charset == GBK){
 				ch = 0;
 				int ok = Codec::readNextGbkChar2UniChar32(buf.data(),len, &from, &ch);
 				if (ok==1){
-					ret.appendChar(ch);
+					ret.add(ch);
 				}
 				else if (ok == 0){
 					break;
 				}
 				else{
 					ch = buf[from++];
-					ret.appendChar(ch);
+					ret.add(ch);
 				}
 			}
 			else if (charset == UTF8){
 				ch = 0;
 				int ok = Codec::readNextUtf8Char2UniChar32(buf.data(),len, &from, &ch);
 				if (ok==1){
-					ret.appendChar(ch);
+					ret.add(ch);
 				}
 				else if (ok == 0){
 					break;
 				}
 				else{
 					ch = buf[from++];
-					ret.appendChar(ch);
+					ret.add(ch);
 				}
 			}
 		}
@@ -74,14 +74,18 @@ U32String StringCodec::stringOf(InputStream& is, Charset charset)
 			buf[i] = 0;
 		}
 	}
-	return ret;
+	Array<UniChar32> arr(ret.size());
+	for (int i = 0; i < arr.size(); i++){
+		arr[i] = ret.get(i);
+	}
+	return arr;
 }
 
-Array<byte> StringCodec::stringTo(U32String& str, Charset charset)
+Array<byte> StringCodec::stringTo(Array<UniChar32>& str, Charset charset)
 {
 	ArrayList<byte> list(str.size());
 	for (int i = 0; i < str.size(); i++){
-		UniChar32 ch = str.charAt(i);
+		UniChar32 ch = str.get(i);
 		if (charset == ASCII){
 			if (ch < 0x80){
 				list.add((byte)ch);

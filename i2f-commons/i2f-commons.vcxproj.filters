@@ -227,5 +227,35 @@
     <ClInclude Include="i2f\commons\codec\Utf8Codec.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="i2f\commons\base\IUString.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\algorithm\Arrays.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\IReadRandomAccessor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\IWriteRandomAccessor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\Sizeable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\algorithm\Algorithem.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\IExEquals.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\impl\ArrayReadRandomAccessor.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\impl\DefaultExEquals.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\interface\impl\ArrayRandomAccessor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

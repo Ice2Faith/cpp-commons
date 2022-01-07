@@ -8,7 +8,7 @@
 template<typename T>
 class Array : virtual public IIterable<T>
 {
-private:
+protected:
 	int m_size;
 	T * m_data;
 public:
@@ -53,8 +53,7 @@ public:
 
 	virtual void of(List<T>& list, int from, int count);
 
-	void expand(int count);
-
+	virtual void expand(int count);
 
 };
 

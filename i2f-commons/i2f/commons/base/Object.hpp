@@ -5,7 +5,7 @@
 #include"../interface/IEquals.h"
 #include"../interface/IHashcode.h"
 
-class Object : virtual public IEquals, virtual public IHashcode
+class Object : virtual public IEquals, virtual public IHashCode
 {
 private:
     const static char * className;
@@ -15,13 +15,13 @@ public:
 	virtual TString<T> toString() = 0;
 	virtual bool equals(const IEquals& val) =0;
 	virtual int hashcode() =0;
-	virtual bool instanceof(Object obj);
+	virtual bool instanceof(Object& obj);
 	virtual const char* getClassName();
 };
 
-const Object::className="i2f.commons.base.Object";
+const char * Object::className = "i2f.commons.base.Object";
 
-bool Object::instanceof(Object obj)
+bool Object::instanceof(Object& obj)
 {
     const char * objClassName=obj.getClassName();
     const char * thisClassName=this->getClassName();

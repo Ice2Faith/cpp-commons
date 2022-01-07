@@ -98,6 +98,11 @@ cpp commons
 - maybe is my lazy
 - so, I free time, this common package will be better
 # updae log
+- 2022-01-08 00:28
+	- module use unicode16 string as String(U16String)
+	- extends String support Charset
+	- string and bytes transform according to the charset which you set
+	- add some algorithm , such find,sort
 - 2022-01-06 22:28
 	- unicode,utf8,gbk tranform supported
 	- and next, String will be base on unicode by UniChar32(unsigned int) instead of char*

@@ -5,9 +5,168 @@
 #include"../codec/Codec.h"
 #include"../interface/IHashcode.h"
 #include"../interface/IEquals.h"
+#include"IUString.h"
+#include"../codec/StringCodec.h"
+#include"../io/ByteArrayInputStream.hpp"
+#include"../io/ByteArrayOutputStream.hpp"
+#include"../algorithm/Arrays.hpp"
 
 template<typename T>
-class TString : virtual public Container,virtual public IEquals,virtual public IHashCode
+class TBasicString
+{
+public:
+	virtual ~TBasicString(){}
+	virtual int slength(T* str);
+	virtual int scompare(T * str1, T* str2);
+	virtual void slower(T* str);
+	virtual void supper(T* str);
+	virtual int sfind(T* str, T* str1, int form);
+	virtual void sconcat(T* str, int maxsize, T* str1);
+	virtual void scopy(T* dst, int maxsize, T* src,int from,int count);
+	virtual int shfind(T * str, T* str1, int from);
+	virtual bool sequal(T* str1, T * str2, int size);
+};
+
+template<typename T>
+int TBasicString<T>::slength(T* str)
+{
+	int i = 0;
+	while (str[i] != 0){
+		i++;
+	}
+	return i;
+}
+
+template<typename T>
+int TBasicString<T>::scompare(T * str1, T* str2)
+{
+	int i = 0;
+	while (str1[i] != 0 && str2[i] != 0){
+		if (str1[i] < str2[i]){
+			return -1;
+		}
+		if (str1[i]>str2[i]){
+			return 1;
+		}
+		i++;
+	}
+	if (str1[i] != 0){
+		return -1;
+	}
+	if (str2[i] != 0){
+		return 1;
+	}
+	return 0;
+}
+
+template<typename T>
+void TBasicString<T>::slower(T* str)
+{
+	int i = 0;
+	while (str[i] != 0){
+		if (str[i] >= 'A' && str[i] <= 'Z'){
+			str[i] += ('a' - 'A');
+		}
+		i++;
+	}
+}
+
+template<typename T>
+void TBasicString<T>::supper(T* str)
+{
+	int i = 0;
+	while (str[i] != 0){
+		if (str[i] >= 'a' && str[i] <= 'z'){
+			str[i] -= ('a' - 'A');
+		}
+		i++;
+	}
+}
+
+template<typename T>
+int TBasicString<T>::sfind(T* str, T* str1,int from)
+{
+	int i = from;
+	while (str[i] != 0){
+		int j = 0;
+		bool eq = true;
+		while (str1[j] != 0){
+			if (str[i + j] != str1[j]){
+				eq = false;
+				break;
+			}
+			if (str[i + j] == 0 ){
+				eq = false;
+				break;
+			}
+			j++;
+		}
+		if (eq){
+			return i;
+		}
+		i++;
+	}
+	return -1;
+}
+
+template<typename T>
+void TBasicString<T>::sconcat(T* str, int maxsize, T* str1)
+{
+	int i = 0;
+	while (str[i] != 0){
+		i++;
+	}
+	if (i >= maxsize){
+		return;
+	}
+	int j = 0;
+	while (str1[j] != 0 && i + j < maxsize-1)
+	{
+		str[i] = str1[j];
+		j++;
+		i++;
+	}
+	str[i] = 0;
+}
+
+template<typename T>
+void TBasicString<T>::scopy(T* dst, int maxsize, T* src, int from, int count)
+{
+	int i = 0;
+	while (src[from + i] != 0 && i<count && i<maxsize-1){
+		dst[i] = src[from + i];
+		i++;
+	}
+	dst[i] = 0;
+}
+
+template<typename T>
+int TBasicString<T>::shfind(T * str, T* str1, int from)
+{
+	int len1 = this->slength(str);
+	int len2 = this->slength(str1);
+	int maxLen = len1 - len2;
+	int i = from;
+	while (i < maxLen){
+		bool eq = this->sequal(&str[i], str1, len2);
+		if (eq){
+			return i;
+		}
+		i++;
+	}
+	return -1;
+}
+
+template<typename T>
+bool TBasicString<T>::sequal(T* str1, T * str2, int size)
+{
+	Arrays<T> algo;
+	return algo.equal(str1, str2, 0, size - 1);
+}
+
+
+template<typename T>
+class TString : virtual TBasicString<T>, virtual public Container, virtual public IEquals, virtual public IHashCode,  virtual public IUString
 {
 protected:
 	T* m_data;
@@ -175,155 +334,49 @@ public:
 	virtual TString<T>& ofAsciiFormat(char * buf);
 	virtual TString<T> replace(const TString<T>& src, const TString<T> dst);
 	virtual TString<T> replaceAll(const TString<T>& src, const TString<T>& dst);
-};
 
-typedef TString<char> String;
-typedef TString<unsigned char> AString;
+	virtual void ofBytes(Array<byte>& bts, StringCodec::Charset charset);
+	virtual Array<byte> toBytes(StringCodec::Charset charset);
+	
+};
 
 template<typename T>
-class TUString : virtual public TString<T>
+void TString<T>::ofBytes(Array<byte>& bts, StringCodec::Charset charset)
 {
-public:
-	virtual TUString<T>& ofUtf8(const byte * data) = 0;
-	virtual TUString<T>& ofUtf8(const byte * data, int * from) = 0;
-	virtual TString<byte> toUtf8() = 0;
-};
-
-class U32String : virtual public TUString<UniChar32>
-{
-public:
-	U32String& ofUtf8(const byte * data);
-	U32String& ofUtf8(const byte * data, int * from);
-	TString<byte> toUtf8();
-};
-
-U32String& U32String::ofUtf8(const byte * data)
-{
-	int size = 0;
-	while (data[size++] != 0);
-	int count = 0;
-	int idx = 0;
-	while (true){
-		UniChar32 ch = 0;
-		int success = Codec::readNextUtf8Char2UniChar32(data,size, &idx, &ch);
-		if (success==1){
-			this->autoCapital(count + 2);
-			this->m_data[count] = ch;
-			this->m_data[count + 1] = (UniChar32)0;
-			count++;
-			if (ch == 0){
-				break;
-			}
-		}
-		else{
-			break;
-		}
+	ByteArrayInputStream is(bts);
+	Array<UniChar32> arr=StringCodec::stringOf(is, charset);
+	if (this->m_data != NULL){
+		delete[] this->m_data;
 	}
-	return *this;
-}
-U32String& U32String::ofUtf8(const byte * data, int * from)
-{
-	int size = 0;
-	while (data[(*from) + (size++)] != 0);
-	size += (*from);
-	int count = 0;
-	while (true){
-		UniChar32 ch = 0;
-		int success = Codec::readNextUtf8Char2UniChar32(data,size, from, &ch);
-		if (success){
-			this->autoCapital(count + 2);
-			this->m_data[count] = ch;
-			this->m_data[count + 1] = (UniChar32)0;
-			count++;
-			if (ch == 0){
-				break;
-			}
-		}
-		else{
-			break;
-		}
+	this->m_size = 0;
+	this->m_data = NULL;
+	this->m_capital = 0;
+	this->recapital(arr.size()+1);
+	this->m_data[0] = (T)0;
+	for (int i = 0; i < arr.size(); i++){
+		this->m_data[i] = (T)arr[i];
 	}
-	return *this;
-}
-TString<byte> U32String::toUtf8()
-{
-	TString<byte> ret;
-	for (int i = 0; i < m_size; i++){
-		Array<byte> arr = Codec::writeUniChar32AsUtf8Chars(this->m_data[i]);
-		ret.appendChars(arr.data(), 0, arr.size());
-	}
-	ret.appendChar((byte)0);
-	return ret;
+	this->m_data[arr.size()] = (T)0;
+	this->m_size = arr.size();
 }
 
-class U16String : public TUString<UniChar16>
+template<typename T>
+Array<byte> TString<T>::toBytes(StringCodec::Charset charset)
 {
-public:
-	U16String& ofUtf8(const byte * data);
-	U16String& ofUtf8(const byte * data, int * from);
-	TString<byte> toUtf8();
-};
-
-U16String& U16String::ofUtf8(const byte * data)
-{
-	int size = 0;
-	while (data[size++]!=0);
-	int count = 0;
-	int idx = 0;
-	while (true){
-		UniChar16 ch = 0;
-		int success = Codec::readNextUtf8Char2UniChar16(data,size, &idx, &ch);
-		if (success==1){
-			this->autoCapital(count + 2);
-			this->m_data[count] = ch;
-			this->m_data[count + 1] = (UniChar16)0;
-			count++;
-			if (ch == 0){
-				break;
-			}
-		}
-		else{
-			break;
-		}
+	Array<UniChar32> arr(this->m_size);
+	for (int i = 0; i < arr.size(); i++){
+		arr[i] = (UniChar32)(this->m_data[i]);
 	}
-	return *this;
-}
-U16String& U16String::ofUtf8(const byte * data, int * from)
-{
-	int size = 0;
-	while (data[(*from) + (size++)] != 0);
-	size += (*from);
-	int count = 0;
-	while (true){
-		UniChar16 ch = 0;
-		int success = Codec::readNextUtf8Char2UniChar16(data,size, from, &ch);
-		if (success==1){
-			this->autoCapital(count + 2);
-			this->m_data[count] = ch;
-			this->m_data[count + 1] = (UniChar16)0;
-			count++;
-			if (ch == 0){
-				break;
-			}
-		}
-		else{
-			break;
-		}
-	}
-	return *this;
-}
-TString<byte> U16String::toUtf8()
-{
-	TString<byte> ret;
-	for (int i = 0; i < m_size; i++){
-		Array<byte> arr = Codec::writeUniChar16AsUtf8Chars(this->m_data[i]);
-		ret.appendChars(arr.data(), 0, arr.size());
-	}
-	ret.appendChar((byte)0);
-	return ret;
+	Array<byte> bts=StringCodec::stringTo(arr, charset);
+	return bts;
 }
 
+typedef TString<char> AString;
+typedef TString<UniChar16> U16String;
+typedef TString<UniChar32> U32String;
 typedef U16String UString;
+typedef U16String String;
+
 
 template<typename T>
 TString<T>::TString()
