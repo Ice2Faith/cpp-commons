@@ -98,6 +98,11 @@ cpp commons
 - maybe is my lazy
 - so, I free time, this common package will be better
 # updae log
+- 2022-01-08 14:49
+	- add sort algorithm and order relative algo.
+	- add bits operate support
+	- add memory operate support
+	- modify File interface
 - 2022-01-08 00:28
 	- module use unicode16 string as String(U16String)
 	- extends String support Charset

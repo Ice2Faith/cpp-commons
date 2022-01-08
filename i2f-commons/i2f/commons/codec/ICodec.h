@@ -3,9 +3,6 @@
 #include"../container/Array.hpp"
 #include"../base/Base.hpp"
 
-typedef unsigned short UniChar16;
-typedef unsigned int UniChar32;
-
 class ICodec
 {
 public:

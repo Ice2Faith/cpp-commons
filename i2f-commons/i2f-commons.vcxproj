@@ -89,7 +89,10 @@
     <ClInclude Include="i2f\commons\algorithm\Function.hpp" />
     <ClInclude Include="i2f\commons\algorithm\Route.hpp" />
     <ClInclude Include="i2f\commons\base\Base.hpp" />
+    <ClInclude Include="i2f\commons\base\Bits.h" />
+    <ClInclude Include="i2f\commons\base\Chars.h" />
     <ClInclude Include="i2f\commons\base\IUString.h" />
+    <ClInclude Include="i2f\commons\base\Memory.h" />
     <ClInclude Include="i2f\commons\base\Object.hpp" />
     <ClInclude Include="i2f\commons\base\String.hpp" />
     <ClInclude Include="i2f\commons\codec\Codec.h" />

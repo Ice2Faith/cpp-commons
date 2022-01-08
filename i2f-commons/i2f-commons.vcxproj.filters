@@ -257,5 +257,14 @@
     <ClInclude Include="i2f\commons\interface\impl\ArrayRandomAccessor.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="i2f\commons\base\Chars.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\base\Bits.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\base\Memory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

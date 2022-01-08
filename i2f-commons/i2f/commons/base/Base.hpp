@@ -323,6 +323,8 @@ typedef Base<unsigned char> UChar;
 typedef Base<unsigned long long> ULLong;
 typedef UChar Byte;
 typedef unsigned char byte;
+typedef unsigned short UniChar16;
+typedef unsigned int UniChar32;
 
 #endif // _I2F_BASE_H_
 

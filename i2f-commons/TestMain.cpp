@@ -25,6 +25,7 @@
 #include"i2f\commons\io\ByteArrayOutputStream.hpp"
 #include"i2f\commons\date\Date.hpp"
 #include"i2f\commons\codec\StringCodec.h"
+#include"i2f\commons\base\Memory.h"
 
 void showList(IIterable<Base<int>>& list)
 {
@@ -126,13 +127,13 @@ void testBasex(){
 
 	Array<byte> out = Basex::encode(in, bitCount);
 
-	ArrayList<char> vin=Codec::visualMemoryHex2(in.data(), in.size(), false);
-	ArrayList<char> vout = Codec::visualMemoryHex2(out.data(), out.size(), false);
+	ArrayList<char> vin=Memory::visualMemoryHex2(in.data(), in.size(), false);
+	ArrayList<char> vout = Memory::visualMemoryHex2(out.data(), out.size(), false);
 
 	
 
 	Array<byte> rvo = Basex::decode(out, bitCount);
-	ArrayList<char> vrvo = Codec::visualMemoryHex2(rvo.data(), rvo.size(), false);
+	ArrayList<char> vrvo = Memory::visualMemoryHex2(rvo.data(), rvo.size(), false);
 	printf("rv:%s\n", vrvo.data());
 	printf("in:%s\n", vin.data());
 	printf("ot:%s\n", vout.data());
@@ -140,7 +141,7 @@ void testBasex(){
 	Array<char> ech=Base64::encode(in);
 	Array<byte> dch = Base64::decode(ech);
 	printf("ech:%s\n", ech.data());
-	ArrayList<char> vdch = Codec::visualMemoryHex2(dch.data(), dch.size(), false);
+	ArrayList<char> vdch = Memory::visualMemoryHex2(dch.data(), dch.size(), false);
 	printf("dch:%s\n", vdch.data());
 
 }
@@ -185,14 +186,14 @@ void testDate()
 void testGbk()
 {
 	char ch[] = { "Å@" };
-	ArrayList<char> arr = Codec::visualMemoryHex16(ch, 2, false);
+	ArrayList<char> arr = Memory::visualMemoryHex16(ch, 2, false);
 	printf("%s\n", arr.data());
 
 	int from = 0;
 	UniChar32 u32 = 0;
 	int ret=Codec::readNextGbkChar2UniChar32((byte *)ch,3, &from, &u32);
 
-	arr = Codec::visualMemoryHex16(&u32, 4, true);
+	arr = Memory::visualMemoryHex16(&u32, 4, true);
 	printf("%s\n", arr.data());
 
 	Array<byte> data=Codec::writeUniChar32AsUtf8Chars(u32);
@@ -287,7 +288,8 @@ void testAlgo()
 	ArrayRandomAccessor<int> accessor(arr, arrSize);
 	DefaultComparator<int> comparator;
 	//sorter.heapSort(accessor, accessor.size(), comparator, false);
-	sorter.mergeSort(accessor, accessor.size(), comparator, false);
+	//sorter.mergeSort(accessor, accessor.size(), comparator, false);
+	sorter.quickSort(accessor, 0, arrSize - 1, comparator, false);
 
 
 
@@ -372,7 +374,7 @@ int main()
 	byte buf[] = {0xfd,0xb5,0x95,0xaa,0xb0,0xb3};
 	
 	int iti = 0x12345678;
-	printf("%s\n", Codec::visualMemoryHex16(&iti, sizeof(iti), true).data());
+	printf("%s\n", Memory::visualMemoryHex16(&iti, sizeof(iti), true).data());
 
 	int idx = 0;
 	UniChar32 c32=0;
@@ -391,7 +393,7 @@ int main()
 	}
 	printf("\n");
 
-	printf("isBigEndian:%d,isLittleEndian:%d\n", Codec::isBigEndian(), Codec::isLittleEndian());
+	printf("isBigEndian:%d,isLittleEndian:%d\n", Memory::isBigEndian(), Memory::isLittleEndian());
 
 	int map[][5] = {
 		//a b c d e
