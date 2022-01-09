@@ -9,8 +9,8 @@
 #include"i2f\commons\algorithm\Function.hpp"
 #include"i2f\commons\interface\impl\DefaultComparator.hpp"
 #include"i2f\commons\container\Matrix2.hpp"
-#include"i2f\commons\graphics\g2d\g2d.h"
-#include"i2f\commons\graphics\g3d\g3d.h"
+#include"i2f\commons\graphics\g2d\g2d.hpp"
+#include"i2f\commons\graphics\g3d\g3d.hpp"
 #include"i2f\commons\algorithm\Route.hpp"
 #include"i2f\commons\codec\Codec.h"
 #include"i2f\commons\base\String.hpp"
@@ -25,7 +25,9 @@
 #include"i2f\commons\io\ByteArrayOutputStream.hpp"
 #include"i2f\commons\date\Date.hpp"
 #include"i2f\commons\codec\StringCodec.h"
-#include"i2f\commons\base\Memory.h"
+#include"i2f\commons\base\Memory.hpp"
+#include"i2f\commons\io\StreamReader.h"
+#include"i2f\commons\io\StreamWriter.h"
 
 void showList(IIterable<Base<int>>& list)
 {
@@ -300,8 +302,28 @@ void testAlgo()
 	getchar();
 }
 
+void testReaderWriter()
+{
+	char * isFile = "D:\\01test\\io\\src-gbk.txt";
+	char * osFile = "D:\\01test\\io\\dst-utf8.txt";
+	FileInputStream fis(isFile);
+	FileOutputStream fos(osFile);
+
+	StreamReader reader(&fis, StringCodec::GBK);
+	String str=reader.readAll();
+	reader.close();
+
+	StreamWriter writer(&fos, StringCodec::UTF8);
+	writer.write(str);
+	writer.close();
+
+	getchar();
+}
+
 int main()
 {
+	testReaderWriter();
+
 	testAlgo();
 
 	testFastEq();

@@ -2,8 +2,8 @@
 #define _I2F_G2D_H_
 
 
-#include"Point2d.h"
-#include"Line2d.h"
+#include"Point2d.hpp"
+#include"Line2d.hpp"
 
 
 #endif // _I2F_G2D_H_

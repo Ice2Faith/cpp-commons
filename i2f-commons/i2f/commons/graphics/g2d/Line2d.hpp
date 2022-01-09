@@ -1,7 +1,7 @@
 #ifndef _I2F_LINE2D_H_
 #define _I2F_LINE2D_H_
 
-#include"Point2d.h"
+#include"Point2d.hpp"
 #include<math.h>
 
 template<typename T>

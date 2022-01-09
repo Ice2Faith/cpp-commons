@@ -4,6 +4,27 @@ cpp commons
 - a common package base on c++
 - which try designed same as java to use c++ do develop
 - but, more and more , you can learn c++ or java low level implement
+# updae log
+- 2022-01-09 23:56
+	- add Reader/Writer and implements of StreamReader/StreamWriter support
+	- fuck c++, why need .h .hpp .cpp 
+	- It's possibly complie error of something was defined in ohter .obj file while I want include a file
+	- so,I undertand it that what's is define that two types of declare explicit type's variable,method,class or template define(and it's template implements)
+- 2022-01-08 14:49
+	- add sort algorithm and order relative algo.
+	- add bits operate support
+	- add memory operate support
+	- modify File interface
+- 2022-01-08 00:28
+	- module use unicode16 string as String(U16String)
+	- extends String support Charset
+	- string and bytes transform according to the charset which you set
+	- add some algorithm , such find,sort
+- 2022-01-06 22:28
+	- unicode,utf8,gbk tranform supported
+	- and next, String will be base on unicode by UniChar32(unsigned int) instead of char*
+	- at least,in this pkg , all string type will be u32
+- more ...
 # next step?
 - try use unicode String instead all string
 - design and implement multi-platform uniform interface
@@ -37,6 +58,43 @@ cpp commons
 #include"i2f\commons\io\ByteArrayOutputStream.hpp"
 #include"i2f\commons\date\Date.hpp"
 #include"i2f\commons\codec\StringCodec.h"
+```
+## reader/writer
+```c++
+	char * isFile = "D:\\01test\\io\\src-gbk.txt";
+	char * osFile = "D:\\01test\\io\\dst-utf8.txt";
+	FileInputStream fis(isFile);
+	FileOutputStream fos(osFile);
+
+	StreamReader reader(&fis, StringCodec::GBK);
+	String str=reader.readAll();
+	reader.close();
+
+	StreamWriter writer(&fos, StringCodec::UTF8);
+	writer.write(str);
+	writer.close();
+
+	getchar();
+```
+## algorithm
+```c++
+	int arr[] = {5,3,1,4,0,2};
+	int arrSize = sizeof(arr) / sizeof(arr[0]);
+
+	AlgoSort<int> sorter;
+	ArrayRandomAccessor<int> accessor(arr, arrSize);
+	DefaultComparator<int> comparator;
+	//sorter.heapSort(accessor, accessor.size(), comparator, false);
+	//sorter.mergeSort(accessor, accessor.size(), comparator, false);
+	sorter.quickSort(accessor, 0, arrSize - 1, comparator, false);
+
+
+
+	AlgoFind<int> finder;
+	int fexrs = finder.halfFindArray(arr, 2, 0, arrSize - 1);
+	int fnexrs = finder.halfFindArray(arr, 6, 0, arrSize - 1);
+
+	getchar();
 ```
 ## io stream
 ```c++
@@ -97,19 +155,4 @@ cpp commons
 - however, I recoglized it's difficult for use c++, also it has STL
 - maybe is my lazy
 - so, I free time, this common package will be better
-# updae log
-- 2022-01-08 14:49
-	- add sort algorithm and order relative algo.
-	- add bits operate support
-	- add memory operate support
-	- modify File interface
-- 2022-01-08 00:28
-	- module use unicode16 string as String(U16String)
-	- extends String support Charset
-	- string and bytes transform according to the charset which you set
-	- add some algorithm , such find,sort
-- 2022-01-06 22:28
-	- unicode,utf8,gbk tranform supported
-	- and next, String will be base on unicode by UniChar32(unsigned int) instead of char*
-	- at least,in this pkg , all string type will be u32
-- more ...
+

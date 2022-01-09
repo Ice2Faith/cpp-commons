@@ -424,7 +424,7 @@ TString<T>::TString(const T * str, int from, int count)
 	this->m_data[i] = (T)0;
 	i--;
 	while (i >= 0){
-		this->data[i] = str[from+i];
+		this->m_data[i] = str[from+i];
 		i--;
 	}
 }
