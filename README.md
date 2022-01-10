@@ -5,6 +5,9 @@ cpp commons
 - which try designed same as java to use c++ do develop
 - but, more and more , you can learn c++ or java low level implement
 # updae log
+- 2022-01-10 11:26
+	- add ucode(\u3306) uricode(%3306) hexcode(0x3306) types string and normal string convert
+	- implements of UcodeStringCodeConverter,UricodeStringCodeConverter,HexcodeStringCodeConverter
 - 2022-01-09 23:56
 	- add Reader/Writer and implements of StreamReader/StreamWriter support
 	- fuck c++, why need .h .hpp .cpp 
@@ -58,6 +61,29 @@ cpp commons
 #include"i2f\commons\io\ByteArrayOutputStream.hpp"
 #include"i2f\commons\date\Date.hpp"
 #include"i2f\commons\codec\StringCodec.h"
+```
+## ucode hexcode uricode convert
+```c++
+	char * isFile = "D:\\01test\\io\\src-ucode.txt";
+	char * osFile = "D:\\01test\\io\\dst-utf8.txt";
+	FileInputStream fis(isFile);
+	FileOutputStream fos(osFile);
+
+	StreamReader reader(&fis, StringCodec::GBK);
+	String str = reader.readAll();
+	reader.close();
+
+	UcodeStringCodeConverter<UniChar16> converter;
+	//UricodeStringCodeConverter<UniChar16> converter;
+	//HexcodeStringCodeConverter<UniChar16> converter;
+	str=converter.stringOf(str);
+
+
+	StreamWriter writer(&fos, StringCodec::UTF8);
+	writer.write(str);
+	writer.close();
+
+	getchar();
 ```
 ## reader/writer
 ```c++

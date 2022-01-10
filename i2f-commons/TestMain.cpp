@@ -28,6 +28,9 @@
 #include"i2f\commons\base\Memory.hpp"
 #include"i2f\commons\io\StreamReader.h"
 #include"i2f\commons\io\StreamWriter.h"
+#include"i2f\commons\codec\UcodeStringCodeConverter.hpp"
+#include"i2f\commons\codec\UricodeStringCodeConverter.hpp"
+#include"i2f\commons\codec\HexcodeStringCodeConverter.hpp"
 
 void showList(IIterable<Base<int>>& list)
 {
@@ -320,8 +323,34 @@ void testReaderWriter()
 	getchar();
 }
 
+void testStringCodeConvert()
+{
+	char * isFile = "D:\\01test\\io\\src-ucode.txt";
+	char * osFile = "D:\\01test\\io\\dst-utf8.txt";
+	FileInputStream fis(isFile);
+	FileOutputStream fos(osFile);
+
+	StreamReader reader(&fis, StringCodec::GBK);
+	String str = reader.readAll();
+	reader.close();
+
+	UcodeStringCodeConverter<UniChar16> converter;
+	//UricodeStringCodeConverter<UniChar16> converter;
+	//HexcodeStringCodeConverter<UniChar16> converter;
+	str=converter.stringOf(str);
+
+
+	StreamWriter writer(&fos, StringCodec::UTF8);
+	writer.write(str);
+	writer.close();
+
+	getchar();
+}
+
 int main()
 {
+	testStringCodeConvert();
+
 	testReaderWriter();
 
 	testAlgo();

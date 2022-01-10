@@ -105,8 +105,12 @@
     <ClInclude Include="i2f\commons\codec\Codec.h" />
     <ClInclude Include="i2f\commons\codec\GbkCodec.h" />
     <ClInclude Include="i2f\commons\codec\GbkDict.h" />
+    <ClInclude Include="i2f\commons\codec\HexcodeStringCodeConverter.hpp" />
     <ClInclude Include="i2f\commons\codec\ICodec.h" />
+    <ClInclude Include="i2f\commons\codec\IStringCodeConverter.hpp" />
     <ClInclude Include="i2f\commons\codec\StringCodec.h" />
+    <ClInclude Include="i2f\commons\codec\UcodeStringCodeConverter.hpp" />
+    <ClInclude Include="i2f\commons\codec\UricodeStringCodeConverter.hpp" />
     <ClInclude Include="i2f\commons\codec\Utf8Codec.h" />
     <ClInclude Include="i2f\commons\container\Array.hpp" />
     <ClInclude Include="i2f\commons\container\ArrayList.hpp" />

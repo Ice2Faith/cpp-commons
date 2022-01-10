@@ -299,5 +299,17 @@
     <ClInclude Include="i2f\commons\codec\Utf8Codec.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="i2f\commons\codec\HexcodeStringCodeConverter.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\codec\IStringCodeConverter.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\codec\UcodeStringCodeConverter.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i2f\commons\codec\UricodeStringCodeConverter.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
