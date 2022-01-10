@@ -88,6 +88,7 @@
     <ClCompile Include="i2f\commons\io\Scanner.cpp" />
     <ClCompile Include="i2f\commons\io\StreamWriter.cpp" />
     <ClCompile Include="i2f\commons\math\Math.cpp" />
+    <ClCompile Include="i2f\init\Eviroment.cpp" />
     <ClCompile Include="TestMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +99,7 @@
     <ClInclude Include="i2f\commons\base\Base.hpp" />
     <ClInclude Include="i2f\commons\base\Bits.hpp" />
     <ClInclude Include="i2f\commons\base\Chars.hpp" />
+    <ClInclude Include="i2f\commons\base\Chs.hpp" />
     <ClInclude Include="i2f\commons\base\IUString.h" />
     <ClInclude Include="i2f\commons\base\Memory.hpp" />
     <ClInclude Include="i2f\commons\base\Object.hpp" />
@@ -131,7 +133,10 @@
     <ClInclude Include="i2f\commons\data\SingleListNode.hpp" />
     <ClInclude Include="i2f\commons\date\Date.hpp" />
     <ClInclude Include="i2f\commons\encode\Basex.hpp" />
+    <ClInclude Include="i2f\commons\encode\HexByteDataConverter.hpp" />
     <ClInclude Include="i2f\commons\encode\Hexx.hpp" />
+    <ClInclude Include="i2f\commons\encode\IDataConverter.hpp" />
+    <ClInclude Include="i2f\commons\encode\UriByteDataConverter.hpp" />
     <ClInclude Include="i2f\commons\filesys\File.h" />
     <ClInclude Include="i2f\commons\graphics\g2d\g2d.hpp" />
     <ClInclude Include="i2f\commons\graphics\g2d\Line2d.hpp" />
@@ -177,7 +182,7 @@
     <ClInclude Include="i2f\commons\io\Writer.hpp" />
     <ClInclude Include="i2f\commons\math\Math.h" />
     <ClInclude Include="i2f\dev\Dev.hpp" />
-    <ClInclude Include="i2f\init\Eviroment.hpp" />
+    <ClInclude Include="i2f\init\Eviroment.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

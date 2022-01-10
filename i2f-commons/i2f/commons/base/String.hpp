@@ -419,6 +419,7 @@ TString<T>::TString(const T * str, int from, int count)
 	}
 	this->m_size = 0;
 	this->m_data = NULL;
+	this->m_capital = 0;
 	this->autoCapital(i+1);
 	this->m_size = i;
 	this->m_data[i] = (T)0;
@@ -435,6 +436,7 @@ TString<T>::TString(const TString<T>& str)
 	this->m_size = 0;
 	int size = str.m_size;
 	this->m_data = NULL;
+	this->m_capital = 0;
 	this->autoCapital(size+1);
 	this->m_data[size] = (T)0;
 	for (int i = 0; i < size; i++){
@@ -454,6 +456,7 @@ TString<T>::TString(const TString<T>& str, int from, int count)
 	}
 	this->m_size = 0;
 	this->m_data = NULL;
+	this->m_capital = 0;
 	this->autoCapital(i+1);
 	this->m_size = i;
 	this->m_data[i] = (T)0;

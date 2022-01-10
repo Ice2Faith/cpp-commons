@@ -5,6 +5,10 @@ cpp commons
 - which try designed same as java to use c++ do develop
 - but, more and more , you can learn c++ or java low level implement
 # updae log
+- 2022-01-10 18:25
+	- complete Unicode Enviroment support
+	- add Chs and Enviroment class support inline Unicode String
+	- add DataCodeConverter to support byte data and form of String byte data transform
 - 2022-01-10 11:26
 	- add ucode(\u3306) uricode(%3306) hexcode(0x3306) types string and normal string convert
 	- implements of UcodeStringCodeConverter,UricodeStringCodeConverter,HexcodeStringCodeConverter
@@ -61,6 +65,26 @@ cpp commons
 #include"i2f\commons\io\ByteArrayOutputStream.hpp"
 #include"i2f\commons\date\Date.hpp"
 #include"i2f\commons\codec\StringCodec.h"
+```
+## inline unicode string
+```c++
+	Chs chs;
+	UniChar16 ch=chs.charOf("好", StringCodec::GBK);
+	String str = chs.strOf("你好呀，hello",StringCodec::GBK);
+
+	int idx=str.indexOf(ch);
+
+	int idx2 = str.indexOf(Chs::charOf("呀"));
+
+	char * osFile = "D:\\01test\\io\\dst-utf8.txt";
+	FileOutputStream fos(osFile);
+
+	StreamWriter writer(&fos, StringCodec::UTF8);
+	writer.writeLine(str);
+	writer.write(ch);
+	writer.close();
+
+	getchar();
 ```
 ## ucode hexcode uricode convert
 ```c++

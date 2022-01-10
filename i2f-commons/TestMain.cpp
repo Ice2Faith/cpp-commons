@@ -31,6 +31,9 @@
 #include"i2f\commons\codec\UcodeStringCodeConverter.hpp"
 #include"i2f\commons\codec\UricodeStringCodeConverter.hpp"
 #include"i2f\commons\codec\HexcodeStringCodeConverter.hpp"
+#include"i2f\commons\encode\UriByteDataConverter.hpp"
+#include"i2f\commons\encode\HexByteDataConverter.hpp"
+#include"i2f\commons\base\Chs.hpp"
 
 void showList(IIterable<Base<int>>& list)
 {
@@ -347,8 +350,58 @@ void testStringCodeConvert()
 	getchar();
 }
 
+void testUriHexEncodeDecode()
+{
+	char * isFile = "D:\\01test\\io\\src-hexcode.txt";
+	char * osFile = "D:\\01test\\io\\dst-utf8.txt";
+	FileInputStream fis(isFile);
+	FileOutputStream fos(osFile);
+
+	StreamReader reader(&fis, StringCodec::GBK);
+	String str = reader.readAll();
+	reader.close();
+
+	//UriByteDataConverter<UniChar16> conv;
+	HexByteDataConverter<UniChar16> conv;
+
+	Array<byte> data=conv.dataOf(str);
+
+	str.ofBytes(data, StringCodec::UTF8);
+
+	StreamWriter writer(&fos, StringCodec::UTF8);
+	writer.write(str);
+	writer.close();
+
+	getchar();
+}
+
+void testSimpleTextEnv()
+{
+	Chs chs;
+	UniChar16 ch=chs.charOf("ºÃ", StringCodec::GBK);
+	String str = chs.strOf("ÄãºÃÑ½£¬hello",StringCodec::GBK);
+
+	int idx=str.indexOf(ch);
+
+	int idx2 = str.indexOf(Chs::charOf("Ñ½"));
+
+	char * osFile = "D:\\01test\\io\\dst-utf8.txt";
+	FileOutputStream fos(osFile);
+
+	StreamWriter writer(&fos, StringCodec::UTF8);
+	writer.writeLine(str);
+	writer.write(ch);
+	writer.close();
+
+	getchar();
+}
+
 int main()
 {
+	testSimpleTextEnv();
+
+	testUriHexEncodeDecode();
+
 	testStringCodeConvert();
 
 	testReaderWriter();
